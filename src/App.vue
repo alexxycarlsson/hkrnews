@@ -1,29 +1,41 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+	<div
+		class="w-full h-full flex flex-col items-center justify-center text-5xl font-bold text-white shadow-2xl"
+	>
+		<div
+			class="w-full h-full -z-10 absolute flex justify-evenly overflow-hidden bg-[#00001F] backdrop-blur-2xl"
+		>
+			<!-- Make 3 balls that float randomly -->
+
+			<div class="box box1"></div>
+		</div>
+		<h1 class="glowfont">Hello world!</h1>
+	</div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+<style lang="scss" scoped>
+.glowfont {
+	text-shadow: 0 0 50px #fff;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+@keyframes glow {
+	0% {
+		transform: translateY(40%) translateX(30%) rotate(0deg) scale(1.05);
+		// hue rotate
+	}
+	50% {
+		transform: translateY(50%) translateX(0) rotate(1turn) scale(1.2);
+	}
+	100% {
+		transform: translateY(60%) translateX(-25%) rotate(0deg) scale(0.95);
+	}
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.box {
+	@apply absolute inset-0 mx-auto w-3/5 rounded-full ease-in-out -z-10 blur-[100px];
+	animation: glow 15s ease-in-out infinite alternate-reverse both;
+	&.box1 {
+		@apply bg-gradient-to-br from-blue-500 via-red-500 to-purple-800;
+	}
 }
 </style>
