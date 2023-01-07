@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterView } from 'vue-router';
+</script>
 
 <template>
 	<div
@@ -11,7 +13,7 @@
 
 			<div class="box box1"></div>
 		</div>
-		<h1 class="glowfont">Hello world!</h1>
+		<RouterView />
 	</div>
 </template>
 
