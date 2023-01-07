@@ -2,15 +2,20 @@
 
 <template>
 	<div
-		class="absolute flex z-50 w-full h-full top-0 bg-black bg-opacity-25 backdrop-blur-xl items-center justify-center"
+		class="absolute flex flex-col z-50 w-full h-full top-0 bg-black bg-opacity-25 backdrop-blur-xl items-center justify-center overflow-hidden"
 	>
-		<h1 class="letter l">L</h1>
-		<h1 class="letter o">o</h1>
-		<h1 class="letter a">a</h1>
-		<h1 class="letter d">d</h1>
-		<h1 class="letter i">i</h1>
-		<h1 class="letter n">n</h1>
-		<h1 class="letter g">g</h1>
+		<div class="flex">
+			<h1 class="letter l">L</h1>
+			<h1 class="letter o">o</h1>
+			<h1 class="letter a">a</h1>
+			<h1 class="letter d">d</h1>
+			<h1 class="letter i">i</h1>
+			<h1 class="letter n">n</h1>
+			<h1 class="letter g">g</h1>
+		</div>
+		<div class="horizontal-spinner">
+			<div class="spinner"></div>
+		</div>
 	</div>
 </template>
 
@@ -18,6 +23,28 @@
 .letter {
 	@apply text-5xl font-bold select-none;
 	line-height: 1;
+}
+
+.horizontal-spinner {
+	@apply w-full h-2 absolute mt-[20rem];
+	.spinner {
+		@apply absolute top-0 left-0 w-full h-full bg-white rounded-xl;
+		animation: spinner 3s linear infinite alternate both;
+	}
+}
+
+@keyframes spinner {
+	// make it shrink and grow and move using translate
+	0% {
+		transform: translateX(-150%) scaleX(0.8);
+	}
+	50% {
+		transform: translateX(0) scaleX(0.3);
+	}
+
+	100% {
+		transform: translateX(150%) scaleX(0.3);
+	}
 }
 
 @keyframes text-bounce {
