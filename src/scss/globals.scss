@@ -1,3 +1,18 @@
+* {
+	@apply outline-none;
+	-webkit-tap-highlight-color: transparent;
+
+	::-webkit-scrollbar {
+		@apply w-3;
+	}
+	::-webkit-scrollbar-track {
+		@apply bg-neutral-400 bg-opacity-25 rounded-2xl;
+	}
+	::-webkit-scrollbar-thumb {
+		@apply bg-white bg-opacity-25 rounded-2xl;
+	}
+}
+
 html,
 body,
 #app {

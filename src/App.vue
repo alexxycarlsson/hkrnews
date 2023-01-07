@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router';
 
 <template>
 	<div
-		class="w-full h-full flex flex-col items-center justify-center text-5xl font-bold text-white shadow-2xl"
+		class="w-full h-full flex flex-col items-center justify-center text-white shadow-2xl"
 	>
 		<div
 			class="w-full h-full -z-10 absolute flex justify-evenly overflow-hidden bg-[#00001F] backdrop-blur-2xl"
@@ -37,5 +37,9 @@ import { RouterView } from 'vue-router';
 	&.box1 {
 		@apply bg-gradient-to-br from-blue-500 via-red-500 to-purple-800;
 	}
+}
+
+.page {
+	@apply w-full h-full flex flex-col;
 }
 </style>
