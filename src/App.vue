@@ -13,7 +13,7 @@ const loading = computed(() => settings.displayLoading);
 		class="w-full h-full flex flex-col items-center justify-center text-white shadow-2xl"
 	>
 		<div
-			class="w-full h-full -z-10 absolute flex justify-evenly overflow-hidden bg-[#00001F] backdrop-blur-2xl"
+			class="w-full h-full -z-10 absolute flex justify-evenly overflow-hidden backdrop-blur-2xl"
 		>
 			<div class="box box1"></div>
 		</div>
