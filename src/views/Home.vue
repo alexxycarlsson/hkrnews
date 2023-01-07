@@ -3,7 +3,7 @@
 <template>
 	<div class="page overflow-x-auto">
 		<div class="row-item">
-			<h1 class="text-3xl font-bold">New</h1>
+			<h1 class="text-4xl font-bold">New</h1>
 			<div
 				class="w-full flex flex-col shrink-0 gap-y-[1rem] gap-x-[1rem] rounded-lg"
 			>
@@ -25,7 +25,7 @@
 .row-item {
 	@apply flex flex-col p-[3rem] gap-y-[4rem];
 	.item-card {
-		@apply flex flex-col shrink-0 h-32 p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg;
+		@apply flex flex-col shrink-0 h-32 p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
 	}
 }
 </style>

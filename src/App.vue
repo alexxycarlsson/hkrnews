@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import Loading from './components/Loading.vue';
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import { RouterView } from 'vue-router';
 		>
 			<div class="box box1"></div>
 		</div>
+		<Loading />
 		<RouterView />
 	</div>
 </template>
