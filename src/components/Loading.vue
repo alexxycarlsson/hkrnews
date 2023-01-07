@@ -22,43 +22,43 @@
 
 @keyframes text-bounce {
 	0% {
-		transform: translateY(0) scale(1);
+		transform: translateY(0) scale(1) rotate(0deg);
 		letter-spacing: 1rem;
 	}
 	30% {
-		transform: translateY(-1rem) scale(1.1);
+		transform: translateY(-1rem) scale(1.1) rotate(4deg);
 	}
 	50% {
-		transform: translateY(0) scale(3);
+		transform: translateY(0) scale(3) rotate(-4deg);
 		letter-spacing: 4rem;
 	}
 	70% {
 		transform: translateY(1rem) scale(1.1);
 	}
 	100% {
-		transform: translateY(0) scale(1);
+		transform: translateY(0) scale(1) rotate(0deg);
 		letter-spacing: 1rem;
 	}
 }
 .l {
-	animation: text-bounce 7s ease-in-out infinite alternate both;
+	animation: text-bounce 7s ease-in-out infinite both;
 }
 .o {
-	animation: text-bounce 7s ease-in-out 0.2s infinite alternate both;
+	animation: text-bounce 7s ease-in-out 0.2s infinite both;
 }
 .a {
-	animation: text-bounce 7s ease-in-out 0.4s infinite alternate both;
+	animation: text-bounce 7s ease-in-out 0.4s infinite both;
 }
 .d {
-	animation: text-bounce 7s ease-in-out 0.6s infinite alternate both;
+	animation: text-bounce 7s ease-in-out 0.6s infinite both;
 }
 .i {
-	animation: text-bounce 7s ease-in-out 0.8s infinite alternate both;
+	animation: text-bounce 7s ease-in-out 0.8s infinite both;
 }
 .n {
-	animation: text-bounce 7s ease-in-out 1s infinite alternate both;
+	animation: text-bounce 7s ease-in-out 1s infinite both;
 }
 .g {
-	animation: text-bounce 7s ease-in-out 1.2s infinite alternate both;
+	animation: text-bounce 7s ease-in-out 1.2s infinite both;
 }
 </style>
