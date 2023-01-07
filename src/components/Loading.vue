@@ -17,6 +17,7 @@
 <style lang="scss" scoped>
 .letter {
 	@apply text-5xl font-bold select-none;
+	line-height: 1;
 }
 
 @keyframes text-bounce {
@@ -32,7 +33,7 @@
 		letter-spacing: 4rem;
 	}
 	70% {
-		transform: translateY(-0.5rem) scale(1.05);
+		transform: translateY(1rem) scale(1.1);
 	}
 	100% {
 		transform: translateY(0) scale(1);
