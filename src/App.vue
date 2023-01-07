@@ -9,8 +9,6 @@ import { RouterView } from 'vue-router';
 		<div
 			class="w-full h-full -z-10 absolute flex justify-evenly overflow-hidden bg-[#00001F] backdrop-blur-2xl"
 		>
-			<!-- Make 3 balls that float randomly -->
-
 			<div class="box box1"></div>
 		</div>
 		<RouterView />
