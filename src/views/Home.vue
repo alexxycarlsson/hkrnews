@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-	<div class="page pt-[4rem] overflow-x-auto">
+	<div class="page overflow-x-auto">
 		<div class="row-item">
 			<h1 class="text-3xl font-bold">New</h1>
 			<div
