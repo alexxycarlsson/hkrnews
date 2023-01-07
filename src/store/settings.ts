@@ -4,6 +4,7 @@ export const useSettingsStore = defineStore('settings', {
 	state: () => {
 		return {
 			url: 'https://hacker-news.firebaseio.com/v0/',
+			displayLoading: true,
 		};
 	},
 });

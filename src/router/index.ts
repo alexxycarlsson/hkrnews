@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { useSettingsStore } from '../store/settings';
 
 const routes: RouteRecordRaw[] = [
 	{
@@ -31,6 +32,17 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes,
+});
+
+router.beforeEach((to, from, next) => {
+	const settings = useSettingsStore();
+	settings.$patch({ displayLoading: true });
+	next();
+});
+
+router.afterEach(() => {
+	const settings = useSettingsStore();
+	settings.$patch({ displayLoading: false });
 });
 
 export default router;

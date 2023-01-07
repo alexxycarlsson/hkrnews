@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { RouterView } from 'vue-router';
 import Loading from './components/Loading.vue';
+import { useSettingsStore } from './store/settings';
+
+const settings = useSettingsStore();
+const loading = computed(() => settings.displayLoading);
 </script>
 
 <template>
@@ -12,7 +17,7 @@ import Loading from './components/Loading.vue';
 		>
 			<div class="box box1"></div>
 		</div>
-		<Loading />
+		<Loading v-if="loading" />
 		<RouterView />
 	</div>
 </template>
