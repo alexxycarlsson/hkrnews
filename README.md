@@ -1,6 +1,6 @@
 # Hacker News
 
-### A better version of Hacker News for the terminal
+### A better version of Hacker News
 
 ## View live version
 
