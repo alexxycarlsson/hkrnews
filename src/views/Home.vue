@@ -54,7 +54,7 @@ const openPostUrl = (url: string) => {
 				class="w-full flex flex-col shrink-0 gap-y-[1rem] gap-x-[1rem] rounded-lg"
 			>
 				<div
-					v-for="post in postarr"
+					v-for="(post, i) in postarr"
 					class="item-card"
 					@click="openPostUrl(post.url)"
 				>
@@ -69,6 +69,7 @@ const openPostUrl = (url: string) => {
 					<p>
 						Score <span>{{ post.score }}</span>
 					</p>
+					<p class="flex justify-end">{{ i + 1 }}</p>
 				</div>
 			</div>
 		</div>
@@ -79,7 +80,7 @@ const openPostUrl = (url: string) => {
 .row-item {
 	@apply flex flex-col p-[3rem] gap-y-[4rem];
 	.item-card {
-		@apply flex flex-col shrink-0 h-32 p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
+		@apply flex flex-col shrink-0 h-[10rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
 	}
 }
 </style>
