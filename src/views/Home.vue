@@ -67,7 +67,11 @@ const openPostUrl = (url: string) => {
 						{{ post.type }}
 					</p>
 					<p v-if="post.descendants">
-						{{ post.descendants }} Comments
+						{{
+							post.descendants > 1
+								? `${post.descendants} Comments`
+								: `${post.descendants} Comment`
+						}}
 					</p>
 					<div class="flex w-full justify-between items-center">
 						<p>
