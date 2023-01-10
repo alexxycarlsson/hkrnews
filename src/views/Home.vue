@@ -66,10 +66,16 @@ const openPostUrl = (url: string) => {
 					<p class="font-semibold text-lg capitalize">
 						{{ post.type }}
 					</p>
-					<p>
-						Score <span>{{ post.score }}</span>
+					<p v-if="post.descendants">
+						{{ post.descendants }} Comments
 					</p>
-					<p class="flex justify-end">{{ i + 1 }}</p>
+					<div class="flex w-full justify-between items-center">
+						<p>
+							Score <span>{{ post.score }}</span>
+						</p>
+
+						<p class="flex justify-end">{{ i + 1 }}</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -80,7 +86,7 @@ const openPostUrl = (url: string) => {
 .row-item {
 	@apply flex flex-col p-[3rem] gap-y-[4rem];
 	.item-card {
-		@apply flex flex-col shrink-0 h-[10rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
+		@apply flex flex-col justify-evenly shrink-0 h-[10rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
 	}
 }
 </style>
