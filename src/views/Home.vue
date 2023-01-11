@@ -1,73 +1,36 @@
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
+import { getNewStories, getPost } from '../ts/api';
 
-interface Post {
-	by: string;
-	descendants: number;
-	id: number;
-	score: number;
-	time: number;
-	title: string;
-	type: string;
-	url: string;
-}
+const router = useRouter();
 
 const settings = useSettingsStore();
 
 const postarr = ref<Array<Post>>([]);
 // {by: 'zolland', descendants: 0, id: 34299251, score: 1, time: 1673187349, …}
 // use typing for above
-async function getPost(id: number): Promise<Post> {
-	const res = await fetch(
-		`https://hacker-news.firebaseio.com/v0/item/${id}.json`
-	);
-	const data: Post = await res.json();
-
-	return data;
-}
-
-async function getPosts() {
-	const res = await fetch(
-		'https://hacker-news.firebaseio.com/v0/newstories.json'
-	);
-	const data: Array<number> = await res.json();
-
-	return data.slice(0, 50);
-}
 
 onBeforeMount(async () => {
-	const posts = await getPosts();
+	let posts = await getNewStories();
+	posts = posts.slice(0, 50);
 	for (const post of posts) {
 		const data = await getPost(post);
 		postarr.value.push(data);
 	}
 });
 
-const openPostUrl = (url: string) => {
-	window.open(url, '_blank');
+const openPostUrl = (id: number) => {
+	// /article/:id
+	router.push({ name: 'Article', params: { id: id } });
 };
 
 const scrollPage = ref<HTMLElement | null>(null);
-const lastScrollY = ref(0);
-
-const onScroll = () => {
-	if (lastScrollY.value < scrollPage.value!.scrollTop) {
-		settings.setShowNavbar(false);
-	} else {
-		settings.setShowNavbar(true);
-	}
-
-	lastScrollY.value = scrollPage.value!.scrollTop;
-};
 
 onMounted(() => {
-	lastScrollY.value = scrollPage.value!.scrollTop;
-	scrollPage.value!.addEventListener('scroll', onScroll);
-});
-
-onBeforeUnmount(() => {
-	scrollPage.value!.removeEventListener('scroll', onScroll);
+	settings.setScrollElement(scrollPage.value!);
 });
 </script>
 
@@ -81,7 +44,7 @@ onBeforeUnmount(() => {
 				<div
 					v-for="(post, i) in postarr"
 					class="item-card"
-					@click="openPostUrl(post.url)"
+					@click="openPostUrl(post.id)"
 				>
 					<div class="flex justify-between items-center">
 						<h1
@@ -115,7 +78,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .row-item {
-	@apply flex flex-col p-[3rem] gap-y-[4rem];
+	@apply flex flex-col gap-y-[4rem];
 	.item-card {
 		@apply flex flex-col justify-between shrink-0 h-[10rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
 	}

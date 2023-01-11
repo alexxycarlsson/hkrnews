@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { RouterView } from 'vue-router';
 import { useSettingsStore } from './store/settings';
 import Loading from './components/Loading.vue';
@@ -7,12 +7,36 @@ import Header from './components/Header.vue';
 
 const settings = useSettingsStore();
 const loading = computed(() => settings.displayLoading);
+
+const scrollPage = computed(() => settings.scrollElement);
+const lastScrollY = ref(0);
+
+const onScroll = () => {
+	if (lastScrollY.value < scrollPage.value!.scrollTop) {
+		settings.setShowNavbar(false);
+	} else {
+		settings.setShowNavbar(true);
+	}
+
+	lastScrollY.value = scrollPage.value!.scrollTop;
+};
+
+watch(
+	scrollPage,
+	(newVal, oldVal) => {
+		if (oldVal) {
+			oldVal.removeEventListener('scroll', onScroll);
+		}
+		if (newVal) {
+			newVal.addEventListener('scroll', onScroll);
+		}
+	},
+	{ immediate: true }
+);
 </script>
 
 <template>
-	<div
-		class="w-full h-full flex flex-col items-center justify-center text-white shadow-2xl"
-	>
+	<div class="w-full h-full flex flex-col text-white shadow-2xl">
 		<div
 			class="w-full h-full -z-10 absolute flex justify-evenly overflow-hidden backdrop-blur-2xl"
 		>
@@ -49,6 +73,6 @@ const loading = computed(() => settings.displayLoading);
 }
 
 .page {
-	@apply w-full h-full flex flex-col;
+	@apply w-full h-full flex flex-col p-[3rem];
 }
 </style>

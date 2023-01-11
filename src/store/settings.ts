@@ -6,12 +6,15 @@ export const useSettingsStore = defineStore('settings', {
 			url: 'https://hacker-news.firebaseio.com/v0/',
 			displayLoading: true,
 			showNavbar: true,
-			scrollElement: null,
+			scrollElement: <HTMLElement | null>null,
 		};
 	},
 	actions: {
 		setShowNavbar(value: boolean) {
 			this.showNavbar = value;
+		},
+		setScrollElement(element: HTMLElement | null) {
+			this.scrollElement = element;
 		},
 	},
 });
