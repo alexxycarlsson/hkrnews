@@ -18,3 +18,5 @@ git push -f git@github.com:alexxycarlsson/hkrnews.git main:gh-pages
 
 
 cd -
+
+echo "Deployed at https://alexxycarlsson.github.io/hkrnews/"
