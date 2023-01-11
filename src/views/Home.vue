@@ -49,7 +49,7 @@ const openPostUrl = (url: string) => {
 };
 
 const scrollPage = ref<HTMLElement | null>(null);
-const lastScrollY = ref(window.scrollY);
+const lastScrollY = ref(0);
 
 const onScroll = () => {
 	if (lastScrollY.value < scrollPage.value!.scrollTop) {
@@ -62,6 +62,7 @@ const onScroll = () => {
 };
 
 onMounted(() => {
+	lastScrollY.value = scrollPage.value!.scrollTop;
 	scrollPage.value!.addEventListener('scroll', onScroll);
 });
 
