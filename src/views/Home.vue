@@ -83,14 +83,16 @@ onBeforeUnmount(() => {
 					class="item-card"
 					@click="openPostUrl(post.url)"
 				>
-					<h1
-						class="whitespace-nowrap overflow-hidden text-ellipsis text-2xl font-bold"
-					>
-						{{ post.title }}
-					</h1>
-					<p class="font-semibold text-lg capitalize">
-						{{ post.type }}
-					</p>
+					<div class="flex justify-between items-center">
+						<h1
+							class="whitespace-nowrap overflow-hidden text-ellipsis text-2xl font-bold"
+						>
+							{{ post.title }}
+						</h1>
+						<p class="font-semibold text-lg capitalize">
+							{{ post.type }}
+						</p>
+					</div>
 					<p v-if="post.descendants">
 						{{
 							post.descendants > 1
@@ -115,7 +117,7 @@ onBeforeUnmount(() => {
 .row-item {
 	@apply flex flex-col p-[3rem] gap-y-[4rem];
 	.item-card {
-		@apply flex flex-col justify-evenly shrink-0 h-[10rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
+		@apply flex flex-col justify-between shrink-0 h-[10rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
 	}
 }
 </style>
