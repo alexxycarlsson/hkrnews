@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { RouterView } from 'vue-router';
-import Loading from './components/Loading.vue';
 import { useSettingsStore } from './store/settings';
+import Loading from './components/Loading.vue';
+import Header from './components/Header.vue';
 
 const settings = useSettingsStore();
 const loading = computed(() => settings.displayLoading);
@@ -18,6 +19,7 @@ const loading = computed(() => settings.displayLoading);
 			<div class="box box1"></div>
 		</div>
 		<Loading v-if="loading" />
+		<Header />
 		<RouterView />
 	</div>
 </template>

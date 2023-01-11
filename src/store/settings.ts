@@ -5,6 +5,13 @@ export const useSettingsStore = defineStore('settings', {
 		return {
 			url: 'https://hacker-news.firebaseio.com/v0/',
 			displayLoading: true,
+			showNavbar: true,
+			scrollElement: null,
 		};
+	},
+	actions: {
+		setShowNavbar(value: boolean) {
+			this.showNavbar = value;
+		},
 	},
 });

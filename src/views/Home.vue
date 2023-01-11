@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue';
+import { useSettingsStore } from '../store/settings';
 
 interface Post {
 	by: string;
@@ -11,6 +12,8 @@ interface Post {
 	type: string;
 	url: string;
 }
+
+const settings = useSettingsStore();
 
 const postarr = ref<Array<Post>>([]);
 // {by: 'zolland', descendants: 0, id: 34299251, score: 1, time: 1673187349, …}
@@ -44,10 +47,31 @@ onBeforeMount(async () => {
 const openPostUrl = (url: string) => {
 	window.open(url, '_blank');
 };
+
+const scrollPage = ref<HTMLElement | null>(null);
+const lastScrollY = ref(window.scrollY);
+
+const onScroll = () => {
+	if (lastScrollY.value < scrollPage.value!.scrollTop) {
+		settings.setShowNavbar(false);
+	} else {
+		settings.setShowNavbar(true);
+	}
+
+	lastScrollY.value = scrollPage.value!.scrollTop;
+};
+
+onMounted(() => {
+	scrollPage.value!.addEventListener('scroll', onScroll);
+});
+
+onBeforeUnmount(() => {
+	scrollPage.value!.removeEventListener('scroll', onScroll);
+});
 </script>
 
 <template>
-	<div class="page overflow-x-auto">
+	<div ref="scrollPage" class="page overflow-x-auto">
 		<div class="row-item">
 			<h1 class="text-4xl font-bold">New</h1>
 			<div
