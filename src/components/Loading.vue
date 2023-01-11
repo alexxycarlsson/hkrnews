@@ -1,4 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onBeforeUnmount, ref } from 'vue';
+
+const reload = () => window.location.reload();
+const showButton = ref(false);
+
+// only show button if 5 seconds have passed
+const timenumber = setTimeout(() => {
+	showButton.value = true;
+}, 5000);
+
+onBeforeUnmount(() => {
+	// remove timeout
+	clearTimeout(timenumber);
+});
+</script>
 
 <template>
 	<div
@@ -15,6 +30,18 @@
 		</div>
 		<div class="horizontal-spinner">
 			<div class="spinner"></div>
+			<div
+				v-if="showButton"
+				class="w-full flex flex-col mt-[4rem] justify-center items-center gap-y-[1rem]"
+			>
+				<h1 class="text-2xl font-bold">Still loading?</h1>
+				<button
+					@click="reload"
+					class="p-[1rem] w-[8rem] bg-white bg-opacity-25 rounded-md font-bold"
+				>
+					Reload
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
