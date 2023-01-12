@@ -34,15 +34,4 @@ const router = createRouter({
 	routes,
 });
 
-router.beforeEach((to, from, next) => {
-	const settings = useSettingsStore();
-	settings.$patch({ displayLoading: true });
-	next();
-});
-
-router.afterEach(() => {
-	const settings = useSettingsStore();
-	settings.$patch({ displayLoading: false });
-});
-
 export default router;

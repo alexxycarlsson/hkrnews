@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
@@ -13,6 +13,12 @@ const settings = useSettingsStore();
 const postarr = ref<Array<Post>>([]);
 // {by: 'zolland', descendants: 0, id: 34299251, score: 1, time: 1673187349, …}
 // use typing for above
+
+watchEffect(() => {
+	if (postarr.value.length > 0) {
+		settings.$patch({ displayLoading: false });
+	}
+});
 
 onBeforeMount(async () => {
 	let posts = await getTopStories();
