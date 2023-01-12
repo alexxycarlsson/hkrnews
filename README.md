@@ -6,7 +6,8 @@ Welcome to HKR News, the _slightly_ better and _barely_ more beautiful version o
 
 -   Implement lazy loading scroll.
 -   Implement New, Threads, Past, Comments, Ask, Show, Jobs, Submit, and Login. (If possible)
--   Make a better design for the comments section. (Like discord kinda)
+-   Implement a better design for the comments section. (Like discord kinda)
+-   Implement Partytown to make the website faster.
 
 ## API
 
