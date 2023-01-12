@@ -21,3 +21,12 @@ export async function getNewStories() {
 
 	return data;
 }
+
+export async function getTopStories() {
+	const res = await fetch(
+		'https://hacker-news.firebaseio.com/v0/topstories.json'
+	);
+	const data: Array<number> = await res.json();
+
+	return data;
+}
