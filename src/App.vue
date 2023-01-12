@@ -68,7 +68,7 @@ watch(
 	@apply absolute inset-0 mx-auto w-3/5 rounded-full ease-in-out -z-10 blur-[100px];
 	animation: glow 15s ease-in-out infinite alternate-reverse both;
 	&.box1 {
-		@apply bg-gradient-to-br from-blue-500 via-red-500 to-purple-800;
+		@apply bg-gradient-to-b from-green-800 via-white to-purple-800;
 	}
 }
 
