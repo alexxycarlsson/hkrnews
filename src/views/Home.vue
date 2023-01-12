@@ -89,7 +89,7 @@ onMounted(() => {
 .row-item {
 	@apply flex flex-col gap-y-[4rem];
 	.item-card {
-		@apply flex flex-col justify-between shrink-0 h-[9rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
+		@apply flex flex-col justify-between shrink-0 h-[9rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer transition-all hover:ring hover:ring-white hover:ring-opacity-25;
 	}
 }
 </style>
