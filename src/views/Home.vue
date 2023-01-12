@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, watch } from 'vue';
+import {
+	onActivated,
+	onBeforeMount,
+	onMounted,
+	onUnmounted,
+	ref,
+	watch,
+} from 'vue';
 import { useRouter } from 'vue-router';
 import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
@@ -11,8 +18,19 @@ const router = useRouter();
 const settings = useSettingsStore();
 
 const postarr = ref<Array<Post>>([]);
-// {by: 'zolland', descendants: 0, id: 34299251, score: 1, time: 1673187349, …}
-// use typing for above
+const allPostIds = ref<Array<number>>([]);
+const scrollPage = ref<HTMLElement | null>(null);
+
+const loadMorePosts = async () => {
+	let posts = allPostIds.value.slice(
+		postarr.value.length,
+		postarr.value.length + 10
+	);
+	for (const post of posts) {
+		const data = await getPost(post);
+		postarr.value.push(data);
+	}
+};
 
 // watch postarr and if it contains one then disableloading
 let watchstop = watch(
@@ -28,10 +46,29 @@ let watchstop = watch(
 
 onBeforeMount(async () => {
 	let posts = await getTopStories();
-	posts = posts.slice(0, 50);
+	allPostIds.value = posts;
+	posts = posts.slice(0, 10);
 	for (const post of posts) {
 		const data = await getPost(post);
 		postarr.value.push(data);
+	}
+});
+
+onMounted(() => {
+	settings.setScrollElement(scrollPage.value!);
+	scrollPage.value!.addEventListener('scroll', () => {
+		if (
+			scrollPage.value!.scrollTop + scrollPage.value!.clientHeight >=
+			scrollPage.value!.scrollHeight
+		) {
+			loadMorePosts();
+		}
+	});
+});
+
+onActivated(() => {
+	if (postarr.value.length > 0) {
+		settings.$patch({ displayLoading: false });
 	}
 });
 
@@ -39,12 +76,6 @@ const openPostUrl = (id: number) => {
 	// /article/:id
 	router.push({ name: 'Article', params: { id: id } });
 };
-
-const scrollPage = ref<HTMLElement | null>(null);
-
-onMounted(() => {
-	settings.setScrollElement(scrollPage.value!);
-});
 </script>
 
 <template>

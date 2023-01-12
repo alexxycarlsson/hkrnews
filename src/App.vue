@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { RouterView } from 'vue-router';
+import { computed, ref, watch } from 'vue';
 import { useSettingsStore } from './store/settings';
 import Loading from './components/Loading.vue';
 import Header from './components/Header.vue';
@@ -44,7 +43,11 @@ watch(
 		</div>
 		<Loading v-if="loading" />
 		<Header />
-		<RouterView />
+		<router-view v-slot="{ Component }">
+			<keep-alive>
+				<component :is="Component" />
+			</keep-alive>
+		</router-view>
 	</div>
 </template>
 
