@@ -38,7 +38,7 @@ onMounted(() => {
 <template>
 	<div ref="scrollPage" class="page overflow-x-auto">
 		<div class="row-item">
-			<h1 class="text-4xl font-bold">Top</h1>
+			<h1 class="px-[1rem] text-4xl font-bold">Top</h1>
 			<div
 				class="w-full flex flex-col shrink-0 gap-y-[1rem] gap-x-[1rem] rounded-lg"
 			>
