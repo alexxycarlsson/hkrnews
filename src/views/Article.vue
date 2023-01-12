@@ -16,8 +16,6 @@ const postFormattedTime = computed(() => {
 	}
 });
 
-settings.$patch({ displayLoading: true });
-
 onBeforeMount(async () => {
 	post.value = await getPost(Number(route.params.id), () =>
 		settings.$patch({ displayLoading: false, showNavbar: true })
