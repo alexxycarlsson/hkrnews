@@ -9,7 +9,7 @@ const showNavbar = computed(() => settings.showNavbar);
 
 <template>
 	<header
-		class="flex shrink-0 w-full h-[6rem] bg-white bg-opacity-25 transition-all transform duration-300 p-4 items-center"
+		class="flex shrink-0 w-full h-[6rem] bg-white bg-opacity-25 transition-all transform duration-300 px-[3rem] items-center"
 		:class="{ nav__hidden: !showNavbar }"
 	>
 		<RouterLink to="/" class="text-2xl font-bold">Hacker News</RouterLink>

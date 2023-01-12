@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
 import { getPost, getTopStories } from '../ts/api';
+import { DateTime } from 'luxon';
 
 const router = useRouter();
 
@@ -46,26 +47,34 @@ onMounted(() => {
 					class="item-card"
 					@click="openPostUrl(post.id)"
 				>
-					<div class="flex justify-between items-center">
-						<h1
-							class="whitespace-nowrap overflow-hidden text-ellipsis text-2xl font-bold"
-						>
-							{{ post.title }}
-						</h1>
-						<p class="font-semibold text-lg capitalize">
-							{{ post.type }}
+					<div class="flex flex-col">
+						<div class="flex justify-between">
+							<h1
+								class="whitespace-nowrap overflow-hidden text-ellipsis text-2xl font-bold"
+							>
+								{{ post.title }}
+							</h1>
+							<p class="font-semibold text-lg capitalize">
+								{{ post.score }} Score
+							</p>
+						</div>
+						<p class="font-bold text-lg">
+							<span class="capitalize">{{ post.type }}</span> by
+							{{ post.by }}
+							<span v-if="post.descendants">
+								|
+								{{
+									post.descendants > 1
+										? `${post.descendants} Comments`
+										: `${post.descendants} Comment`
+								}}
+							</span>
 						</p>
 					</div>
-					<p v-if="post.descendants">
-						{{
-							post.descendants > 1
-								? `${post.descendants} Comments`
-								: `${post.descendants} Comment`
-						}}
-					</p>
+
 					<div class="flex w-full justify-between items-center">
-						<p>
-							Score <span>{{ post.score }}</span>
+						<p class="capitalize">
+							{{ DateTime.fromSeconds(post.time).toRelative() }}
 						</p>
 
 						<p class="flex justify-end">{{ i + 1 }}</p>
@@ -80,7 +89,7 @@ onMounted(() => {
 .row-item {
 	@apply flex flex-col gap-y-[4rem];
 	.item-card {
-		@apply flex flex-col justify-between shrink-0 h-[10rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
+		@apply flex flex-col justify-between shrink-0 h-[9rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer;
 	}
 }
 </style>
