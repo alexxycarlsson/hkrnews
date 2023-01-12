@@ -2,6 +2,12 @@
 
 Welcome to HKR News, the _slightly_ better and _barely_ more beautiful version of the popular news site Hacker News. Because let's be real, the original design was just too much to handle.
 
+## TODO
+
+-   Implement lazy loading scroll.
+-   Implement New, Threads, Past, Comments, Ask, Show, Jobs, Submit, and Login. (If possible)
+-   Make a better design for the comments section. (Like discord kinda)
+
 ## API
 
 We utilize the [Hacker News API](https://github.com/HackerNews/API) to retrieve the latest stories and comments from Hacker News. Because, why not? Might as well use something that already exists.
