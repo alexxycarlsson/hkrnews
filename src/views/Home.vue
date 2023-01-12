@@ -20,15 +20,24 @@ const settings = useSettingsStore();
 const postarr = ref<Array<Post>>([]);
 const allPostIds = ref<Array<number>>([]);
 const scrollPage = ref<HTMLElement | null>(null);
+const noMoreLoading = ref(false);
+
+const reload = () => {
+	window.location.reload();
+};
 
 const loadMorePosts = async () => {
-	let posts = allPostIds.value.slice(
-		postarr.value.length,
-		postarr.value.length + 10
-	);
-	for (const post of posts) {
-		const data = await getPost(post);
-		postarr.value.push(data);
+	if (postarr.value.length < allPostIds.value.length) {
+		let posts = allPostIds.value.slice(
+			postarr.value.length,
+			postarr.value.length + 10
+		);
+		for (const post of posts) {
+			const data = await getPost(post);
+			postarr.value.push(data);
+		}
+	} else {
+		noMoreLoading.value = true;
 	}
 };
 
@@ -122,6 +131,20 @@ const openPostUrl = (id: number) => {
 
 						<p class="flex justify-end">{{ i + 1 }}</p>
 					</div>
+				</div>
+				<div
+					v-if="noMoreLoading"
+					class="flex flex-col justify-center items-center gap-y-[1rem]"
+				>
+					<h1 class="text-2xl font-bold text-black">
+						You have reached the end.
+					</h1>
+					<button
+						@click="reload"
+						class="p-[1rem] w-[8rem] bg-black bg-opacity-25 rounded-md font-bold"
+					>
+						Reload
+					</button>
 				</div>
 			</div>
 		</div>
