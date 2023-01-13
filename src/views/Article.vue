@@ -5,7 +5,6 @@ import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
 import { getPost } from '../ts/api';
 import { DateTime } from 'luxon';
-import { capitalize } from '../ts/utils';
 
 const route = useRoute();
 const post = ref<Post>();
@@ -14,7 +13,7 @@ const timeref = ref<HTMLElement | null>(null);
 const postFormattedTime = computed(() => {
 	if (post.value) {
 		// return as string: 1 hour ago, 2 days ago, 23 Decemeber 2020
-		return capitalize(DateTime.fromSeconds(post.value.time).toRelative()!);
+		return DateTime.fromSeconds(post.value.time).toRelative()!;
 	}
 });
 
