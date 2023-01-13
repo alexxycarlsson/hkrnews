@@ -9,7 +9,7 @@ Set-Location dist
 # Git push this folder to the gh-pages branch
 git init
 git add .
-git commit -m "Deployed at $(Get-Date)"
+git commit -m "Deployed at $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 git remote add origin "git@github.com:alexxycarlsson/hkrnews.git"
 git push -f origin "main:gh-pages"
 
