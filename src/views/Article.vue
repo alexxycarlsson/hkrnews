@@ -5,14 +5,16 @@ import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
 import { getPost } from '../ts/api';
 import { DateTime } from 'luxon';
+import { capitalize } from '../ts/utils';
 
 const route = useRoute();
 const post = ref<Post>();
 const settings = useSettingsStore();
+const timeref = ref<HTMLElement | null>(null);
 const postFormattedTime = computed(() => {
 	if (post.value) {
 		// return as string: 1 hour ago, 2 days ago, 23 Decemeber 2020
-		return DateTime.fromSeconds(post.value.time).toRelative();
+		return capitalize(DateTime.fromSeconds(post.value.time).toRelative()!);
 	}
 });
 
@@ -30,8 +32,9 @@ onBeforeMount(async () => {
 		</a>
 
 		<div class="flex justify-between items-center">
-			<p class="font-semibold text-lg capitalize">
-				{{ post?.type }} by {{ post?.by }}
+			<p class="font-semibold text-lg">
+				<span class="capitalize">{{ post?.type }}</span> by
+				{{ post?.by }}
 			</p>
 			<p class="font-semibold text-lg capitalize">
 				{{ post?.score }} Score
@@ -41,7 +44,7 @@ onBeforeMount(async () => {
 			</p>
 		</div>
 		<div>
-			<p class="font-semibold text-lg capitalize">
+			<p ref="timeref" class="font-semibold text-lg">
 				{{ postFormattedTime }}
 			</p>
 		</div>

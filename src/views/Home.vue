@@ -12,6 +12,7 @@ import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
 import { getPost, getTopStories } from '../ts/api';
 import { DateTime } from 'luxon';
+import { capitalize } from '../ts/utils';
 
 const router = useRouter();
 
@@ -125,8 +126,14 @@ const openPostUrl = (id: number) => {
 					</div>
 
 					<div class="flex w-full justify-between items-center">
-						<p class="capitalize">
-							{{ DateTime.fromSeconds(post.time).toRelative() }}
+						<p ref="timeref">
+							{{
+								capitalize(
+									DateTime.fromSeconds(
+										post.time
+									).toRelative()!
+								)
+							}}
 						</p>
 
 						<p class="flex justify-end">{{ i + 1 }}</p>
