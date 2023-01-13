@@ -76,6 +76,6 @@ watch(
 }
 
 .page {
-	@apply w-full h-full flex flex-col p-[3rem];
+	@apply w-full h-full flex flex-col transition-all sm:p-[3rem] p-3;
 }
 </style>

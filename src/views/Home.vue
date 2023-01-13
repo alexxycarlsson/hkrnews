@@ -1,18 +1,10 @@
 <script setup lang="ts">
-import {
-	onActivated,
-	onBeforeMount,
-	onMounted,
-	onUnmounted,
-	ref,
-	watch,
-} from 'vue';
+import { onActivated, onBeforeMount, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
 import { getPost, getTopStories } from '../ts/api';
 import { DateTime } from 'luxon';
-import { capitalize } from '../ts/utils';
 
 const router = useRouter();
 
@@ -91,7 +83,7 @@ const openPostUrl = (id: number) => {
 <template>
 	<div ref="scrollPage" class="page overflow-x-auto">
 		<div class="row-item">
-			<h1 class="px-[1rem] text-4xl font-bold">Top</h1>
+			<h1 class="px-2 sm:px-3 pt-4 sm:pt-0 text-4xl font-bold">Top</h1>
 			<div
 				class="w-full flex flex-col shrink-0 gap-y-[1rem] gap-x-[1rem] rounded-lg"
 			>
@@ -101,39 +93,26 @@ const openPostUrl = (id: number) => {
 					@click="openPostUrl(post.id)"
 				>
 					<div class="flex flex-col">
-						<div class="flex justify-between">
-							<h1
-								class="whitespace-nowrap overflow-hidden text-ellipsis text-2xl font-bold"
-							>
-								{{ post.title }}
-							</h1>
-							<p class="font-semibold text-lg capitalize">
-								{{ post.score }} Score
-							</p>
-						</div>
-						<p class="font-bold text-lg">
+						<h1 class="sm:text-xl font-bold">
+							{{ post.title }}
+						</h1>
+						<p class="text-sm">
 							<span class="capitalize">{{ post.type }}</span> by
 							{{ post.by }}
-							<span v-if="post.descendants">
-								|
-								{{
-									post.descendants > 1
-										? `${post.descendants} Comments`
-										: `${post.descendants} Comment`
-								}}
-							</span>
+						</p>
+						<p class="text-sm">
+							{{ post.score }} ⭐ |
+							{{
+								post.descendants > 1
+									? `${post.descendants} comments`
+									: `${post.descendants} comment`
+							}}
 						</p>
 					</div>
 
 					<div class="flex w-full justify-between items-center">
 						<p ref="timeref">
-							{{
-								capitalize(
-									DateTime.fromSeconds(
-										post.time
-									).toRelative()!
-								)
-							}}
+							{{ DateTime.fromSeconds(post.time).toRelative()! }}
 						</p>
 
 						<p class="flex justify-end">{{ i + 1 }}</p>
@@ -160,9 +139,9 @@ const openPostUrl = (id: number) => {
 
 <style lang="scss" scoped>
 .row-item {
-	@apply flex flex-col gap-y-[4rem];
+	@apply flex flex-col gap-y-6 sm:gap-y-[3rem];
 	.item-card {
-		@apply flex flex-col justify-between shrink-0 h-[9rem] p-[1rem] bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer transition-all hover:ring hover:ring-white hover:ring-opacity-25;
+		@apply flex flex-col justify-between shrink-0 h-[9rem] p-4 bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer transition-all hover:ring hover:ring-white hover:ring-opacity-25;
 	}
 }
 </style>
