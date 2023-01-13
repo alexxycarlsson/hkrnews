@@ -83,7 +83,7 @@ const openPostUrl = (id: number) => {
 <template>
 	<div ref="scrollPage" class="page overflow-x-auto">
 		<div class="row-item">
-			<h1 class="px-2 sm:px-3 pt-4 sm:pt-0 text-4xl font-bold">Top</h1>
+			<h1 class="px-3 text-4xl font-bold">Top</h1>
 			<div
 				class="w-full flex flex-col shrink-0 gap-y-[1rem] gap-x-[1rem] rounded-lg"
 			>
@@ -139,7 +139,7 @@ const openPostUrl = (id: number) => {
 
 <style lang="scss" scoped>
 .row-item {
-	@apply flex flex-col gap-y-6 sm:gap-y-[3rem];
+	@apply flex flex-col gap-y-3 sm:gap-y-[3rem];
 	.item-card {
 		@apply flex flex-col justify-between shrink-0 h-[9rem] p-4 bg-neutral-600 bg-opacity-25 rounded-lg cursor-pointer transition-all hover:ring hover:ring-white hover:ring-opacity-25;
 	}
