@@ -10,7 +10,7 @@ git init
 git checkout -B main
 git add -A
 git commit -m "deploy"
-git push -f "git@github.com:alexxycarlsson/hkrnews.git main:gh-pages"
+git push -f origin main:gh-pages
 
 Set-Location ".."
 
