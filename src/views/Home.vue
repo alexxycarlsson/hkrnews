@@ -14,6 +14,7 @@ const postarr = ref<Array<Post>>([]);
 const allPostIds = ref<Array<number>>([]);
 const scrollPage = ref<HTMLElement | null>(null);
 const noMoreLoading = ref(false);
+const loadingPosts = ref(false);
 
 const reload = () => {
 	window.location.reload();
@@ -63,7 +64,12 @@ onMounted(() => {
 			scrollPage.value!.scrollTop + scrollPage.value!.clientHeight >=
 			scrollPage.value!.scrollHeight
 		) {
-			loadMorePosts();
+			if (!loadingPosts.value) {
+				loadingPosts.value = true;
+				loadMorePosts().then(() => {
+					loadingPosts.value = false;
+				});
+			}
 		}
 	});
 });
