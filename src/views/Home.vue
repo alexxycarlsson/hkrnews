@@ -48,6 +48,7 @@ let watchstop = watch(
 );
 
 onBeforeMount(async () => {
+	loadingPosts.value = true;
 	let posts = await getTopStories();
 	allPostIds.value = posts;
 	posts = posts.slice(0, 10);
@@ -55,6 +56,7 @@ onBeforeMount(async () => {
 		const data = await getPost(post);
 		postarr.value.push(data);
 	}
+	loadingPosts.value = false;
 });
 
 onMounted(() => {
@@ -62,7 +64,7 @@ onMounted(() => {
 	scrollPage.value!.addEventListener('scroll', () => {
 		if (
 			scrollPage.value!.scrollTop + scrollPage.value!.clientHeight >=
-			scrollPage.value!.scrollHeight
+			scrollPage.value!.scrollHeight - 100
 		) {
 			if (!loadingPosts.value) {
 				loadingPosts.value = true;
