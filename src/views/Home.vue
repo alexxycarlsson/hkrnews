@@ -109,12 +109,15 @@ const openPostUrl = (id: number) => {
 							{{ post.by }}
 						</p>
 						<p class="text-sm">
-							{{ post.score }} ⭐ |
-							{{
-								post.descendants > 1
-									? `${post.descendants} comments`
-									: `${post.descendants} comment`
-							}}
+							{{ post.score }} ⭐
+							<span v-if="post.descendants"
+								>|
+								{{
+									post.descendants > 1
+										? `${post.descendants} comments`
+										: `${post.descendants} comment`
+								}}</span
+							>
 						</p>
 					</div>
 
