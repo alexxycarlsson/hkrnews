@@ -105,7 +105,10 @@ const openPostUrl = (id: number) => {
 							{{ post.title }}
 						</h1>
 						<p class="text-sm">
-							<span class="capitalize">{{ post.type }}</span> by
+							<span class="capitalize font-semibold">{{
+								post.type
+							}}</span>
+							by
 							{{ post.by }}
 						</p>
 						<p class="text-sm">
