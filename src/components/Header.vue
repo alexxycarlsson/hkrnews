@@ -1,10 +1,33 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useSettingsStore } from '../store/settings';
 import { RouterLink } from 'vue-router';
 
 const settings = useSettingsStore();
 const showNavbar = computed(() => settings.showNavbar);
+const scrollPage = computed(() => settings.scrollElement);
+
+const lastScrollY = ref(0);
+const onScroll = () => {
+	if (lastScrollY.value < scrollPage.value!.scrollTop) {
+		settings.setShowNavbar(false);
+	} else {
+		settings.setShowNavbar(true);
+	}
+	lastScrollY.value = scrollPage.value!.scrollTop;
+};
+watch(
+	scrollPage,
+	(newVal, oldVal) => {
+		if (oldVal) {
+			oldVal.removeEventListener('scroll', onScroll);
+		}
+		if (newVal) {
+			newVal.addEventListener('scroll', onScroll);
+		}
+	},
+	{ immediate: true }
+);
 </script>
 
 <template>

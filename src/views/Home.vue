@@ -14,13 +14,37 @@ const postarr = ref<Array<Post>>([]);
 const allPostIds = ref<Array<number>>([]);
 const scrollPage = ref<HTMLElement | null>(null);
 const noMoreLoading = ref(false);
-const loadingPosts = ref(false);
+const loadingPosts = ref(true);
 
 const reload = () => {
 	window.location.reload();
 };
 
+const callObserve = () => {
+	const lastPost =
+		scrollPage.value!.children[0].lastElementChild?.lastElementChild;
+	// Somehow it's not selecting the last element idk why. I hope I can fix it someday.
+
+	// use observer to check if last post is in view then load more posts
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.intersectionRatio > 0) {
+					observer.unobserve(entry.target);
+					loadMorePosts();
+				}
+			});
+		},
+		{ threshold: 1 }
+	);
+	if (lastPost) {
+		observer.observe(lastPost);
+	}
+};
+
 const loadMorePosts = async () => {
+	if (loadingPosts.value || noMoreLoading.value) return;
+
 	if (postarr.value.length < allPostIds.value.length) {
 		let posts = allPostIds.value.slice(
 			postarr.value.length,
@@ -30,6 +54,7 @@ const loadMorePosts = async () => {
 			const data = await getPost(post);
 			postarr.value.push(data);
 		}
+		callObserve();
 	} else {
 		noMoreLoading.value = true;
 	}
@@ -48,7 +73,6 @@ let watchstop = watch(
 );
 
 onBeforeMount(async () => {
-	loadingPosts.value = true;
 	let posts = await getTopStories();
 	allPostIds.value = posts;
 	posts = posts.slice(0, 10);
@@ -56,24 +80,14 @@ onBeforeMount(async () => {
 		const data = await getPost(post);
 		postarr.value.push(data);
 	}
+
 	loadingPosts.value = false;
+
+	callObserve();
 });
 
 onMounted(() => {
 	settings.setScrollElement(scrollPage.value!);
-	scrollPage.value!.addEventListener('scroll', () => {
-		if (
-			scrollPage.value!.scrollTop + scrollPage.value!.clientHeight >=
-			scrollPage.value!.scrollHeight - 100
-		) {
-			if (!loadingPosts.value) {
-				loadingPosts.value = true;
-				loadMorePosts().then(() => {
-					loadingPosts.value = false;
-				});
-			}
-		}
-	});
 });
 
 onActivated(() => {

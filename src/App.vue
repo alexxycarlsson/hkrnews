@@ -6,32 +6,6 @@ import Header from './components/Header.vue';
 
 const settings = useSettingsStore();
 const loading = computed(() => settings.displayLoading);
-
-const scrollPage = computed(() => settings.scrollElement);
-const lastScrollY = ref(0);
-
-const onScroll = () => {
-	if (lastScrollY.value < scrollPage.value!.scrollTop) {
-		settings.setShowNavbar(false);
-	} else {
-		settings.setShowNavbar(true);
-	}
-
-	lastScrollY.value = scrollPage.value!.scrollTop;
-};
-
-watch(
-	scrollPage,
-	(newVal, oldVal) => {
-		if (oldVal) {
-			oldVal.removeEventListener('scroll', onScroll);
-		}
-		if (newVal) {
-			newVal.addEventListener('scroll', onScroll);
-		}
-	},
-	{ immediate: true }
-);
 </script>
 
 <template>
