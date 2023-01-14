@@ -7,6 +7,7 @@ export const useSettingsStore = defineStore('settings', {
 			displayLoading: true,
 			showNavbar: true,
 			scrollElement: <HTMLElement | null>null,
+			scrollPosition: 0,
 		};
 	},
 	actions: {

@@ -79,11 +79,14 @@ onMounted(() => {
 onActivated(() => {
 	if (postarr.value.length > 0) {
 		settings.$patch({ displayLoading: false });
+		// scroll to saved position
+		scrollPage.value!.scrollTop = settings.scrollPosition;
 	}
 });
 
 const openPostUrl = (id: number) => {
-	// /article/:id
+	// save scroll position
+	settings.$patch({ scrollPosition: scrollPage.value!.scrollTop });
 	router.push({ name: 'Article', params: { id: id } });
 };
 </script>
