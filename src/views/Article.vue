@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onActivated, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { Post } from '../interfaces/interfaces';
 import { useSettingsStore } from '../store/settings';
@@ -12,12 +12,11 @@ const settings = useSettingsStore();
 const timeref = ref<HTMLElement | null>(null);
 const postFormattedTime = computed(() => {
 	if (post.value) {
-		// return as string: 1 hour ago, 2 days ago, 23 Decemeber 2020
 		return DateTime.fromSeconds(post.value.time).toRelative()!;
 	}
 });
 
-onBeforeMount(async () => {
+onActivated(async () => {
 	post.value = await getPost(Number(route.params.id), () =>
 		settings.$patch({ displayLoading: false, showNavbar: true })
 	);
