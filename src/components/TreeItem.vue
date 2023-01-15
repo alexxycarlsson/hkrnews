@@ -22,10 +22,7 @@ const children = computed<Post[]>(() => props.model.children || []);
 				{{ DateTime.fromSeconds(props.model.time).toRelative() }}
 			</p>
 		</div>
-		<div
-			v-html="props.model.text"
-			class="flex flex-col gap-y-2 pl-4 bg-white bg-opacity-10 rounded-md p-4"
-		/>
+		<div v-html="props.model.text" class="htmltext" />
 
 		<ul>
 			<TreeItem
@@ -37,4 +34,8 @@ const children = computed<Post[]>(() => props.model.children || []);
 	</li>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.htmltext {
+	@apply pl-4 bg-white bg-opacity-10 rounded-md p-4 overflow-hidden;
+}
+</style>
