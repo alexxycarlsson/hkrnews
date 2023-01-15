@@ -12,8 +12,6 @@ const props = defineProps({
 
 // Use typing :post
 const children = computed<Post[]>(() => props.model.children || []);
-
-console.log(props.model);
 </script>
 
 <template>

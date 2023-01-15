@@ -71,8 +71,8 @@ onActivated(async () => {
 		// log length of allKids.value to see how many posts are loaded
 
 		makeTree();
-		settings.$patch({ displayLoading: false });
 	}
+	settings.$patch({ displayLoading: false });
 });
 </script>
 
