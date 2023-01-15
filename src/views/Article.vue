@@ -9,6 +9,7 @@ import TreeItem from '../components/TreeItem.vue';
 
 const route = useRoute();
 const post = ref<Post>();
+const scrollPage = ref<HTMLElement | null>(null);
 const settings = useSettingsStore();
 const postFormattedTime = computed(() => {
 	if (post.value) {
@@ -72,7 +73,8 @@ onActivated(async () => {
 
 		makeTree();
 	}
-	settings.$patch({ displayLoading: false });
+	settings.setScrollElement(scrollPage.value!);
+	settings.$patch({ displayLoading: false, showNavbar: true });
 });
 </script>
 

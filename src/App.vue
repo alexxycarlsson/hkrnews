@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed } from 'vue';
 import { useSettingsStore } from './store/settings';
 import Loading from './components/Loading.vue';
 import Header from './components/Header.vue';

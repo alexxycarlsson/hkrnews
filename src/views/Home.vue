@@ -91,6 +91,7 @@ onMounted(() => {
 });
 
 onActivated(() => {
+	settings.setScrollElement(scrollPage.value!);
 	if (postarr.value.length > 0) {
 		settings.$patch({ displayLoading: false });
 		// scroll to saved position
