@@ -20,23 +20,28 @@ const reload = () => {
 	window.location.reload();
 };
 
+const observer = new IntersectionObserver(
+	(entries) => {
+		entries.forEach((entry) => {
+			if (entry.intersectionRatio > 0) {
+				observer.unobserve(entry.target);
+				loadMorePosts();
+			}
+		});
+	},
+	{ threshold: 1 }
+);
+
 const callObserve = () => {
 	const lastPost =
 		scrollPage.value!.children[0].lastElementChild?.lastElementChild;
+
+	console.log(lastPost);
+
 	// Somehow it's not selecting the last element idk why. I hope I can fix it someday.
 
 	// use observer to check if last post is in view then load more posts
-	const observer = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry) => {
-				if (entry.intersectionRatio > 0) {
-					observer.unobserve(entry.target);
-					loadMorePosts();
-				}
-			});
-		},
-		{ threshold: 1 }
-	);
+
 	if (lastPost) {
 		observer.observe(lastPost);
 	}
@@ -82,7 +87,6 @@ onBeforeMount(async () => {
 	}
 
 	loadingPosts.value = false;
-
 	callObserve();
 });
 
