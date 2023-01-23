@@ -17,16 +17,17 @@ const postFormattedTime = computed(() => {
 	}
 });
 
-const allKids = ref<any>({});
-async function getAllKids(kids: Array<number>) {
+const allSubPosts = ref<any>({});
+
+async function getAllSubPosts(posts: Array<number>) {
 	// run this function recursively to get all the kids
 	// return object of all kids nested in the post using parent and kids id
-	for (const kid of kids) {
-		const data = await getPost(kid);
+	for (const post of posts) {
+		const data = await getPost(post);
 		if (data.deleted || data.dead) return;
-		allKids.value[kid] = data;
+		allSubPosts.value[post] = data;
 		if (data.kids) {
-			await getAllKids(data.kids);
+			await getAllSubPosts(data.kids);
 		}
 	}
 }
@@ -34,21 +35,21 @@ async function getAllKids(kids: Array<number>) {
 // make tree structure of all kids. If a kid has no parent, it is a root node
 const treeData = ref<Array<Post>>([]);
 function makeTree() {
-	for (const kid in allKids.value) {
-		if (allKids.value[kid].parent === post.value?.id) {
-			treeData.value.push(allKids.value[kid]);
+	for (const subPost in allSubPosts.value) {
+		if (allSubPosts.value[subPost].parent === post.value?.id) {
+			treeData.value.push(allSubPosts.value[subPost]);
 		} else {
 			// make child the comment
 			const findParent = (parent: any) => {
-				if (allKids.value[kid].parent === parent.id) {
+				if (allSubPosts.value[subPost].parent === parent.id) {
 					if (!parent.children) {
 						parent.children = [];
 					}
-					parent.children.push(allKids.value[kid]);
+					parent.children.push(allSubPosts.value[subPost]);
 				} else {
 					if (parent.children) {
-						for (const child of parent.children) {
-							findParent(child);
+						for (const post of parent.children) {
+							findParent(post);
 						}
 					}
 				}
@@ -64,17 +65,18 @@ function makeTree() {
 onActivated(async () => {
 	post.value = await getPost(Number(route.params.id));
 
+	settings.$patch({ displayLoading: false, showNavbar: true });
+
 	if (post.value.kids) {
-		allKids.value = {};
+		allSubPosts.value = {};
 		treeData.value = [];
-		await getAllKids(post.value.kids);
+		await getAllSubPosts(post.value.kids);
 
 		// log length of allKids.value to see how many posts are loaded
 
 		makeTree();
 	}
 	settings.setScrollElement(scrollPage.value!);
-	settings.$patch({ displayLoading: false, showNavbar: true });
 });
 </script>
 
@@ -111,10 +113,10 @@ onActivated(async () => {
 		<ul v-if="post?.kids" class="flex flex-col gap-y-4 mt-4">
 			<!-- use treeData -->
 			<TreeItem
-				v-for="child in treeData"
+				v-for="post in treeData"
 				class="bg-black bg-opacity-25 p-4 rounded-md"
-				:key="child.id"
-				:model="child"
+				:key="post.id"
+				:model="post"
 			></TreeItem>
 		</ul>
 	</div>
